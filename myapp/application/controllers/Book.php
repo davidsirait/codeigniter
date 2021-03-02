@@ -70,13 +70,30 @@ class Book extends CI_Controller
     {
         $query = $this->Book_model->getSingleBook('id',$id);
         $data['books'] = $query->row_array();
-
+        
         if($this->input->post())
         {
             $post['title'] = $this->input->post('title');
             $post['content'] = $this->input->post('content');
             $post['url'] = $this->input->post('url');
 
+            $config['upload_path']          = './uploads/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 100;
+            $config['max_width']            = 1024;
+            $config['max_height']           = 768;
+            
+            $this->load ->library('upload',$config);
+
+            if(!$this->upload->do_upload('cover'))
+            {
+                echo $this->upload->display_errors();
+            }
+            else
+            {
+                $post['cover'] = $this->upload->data()['file_name'];
+
+            }
             $id_book = $this->Book_model->updateBook($id, $post);
 
             if($id_book)

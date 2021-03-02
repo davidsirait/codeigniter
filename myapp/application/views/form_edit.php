@@ -18,23 +18,26 @@
   <div class="row justify-content-center">
     <div class="com-md-8">
         <h1>Edit Buku Tersimpan</h1>
-            <form method="POST">
+            <?php echo form_open_multipart(); ?>
                 <div class="form-group">
                     <label>Judul Buku</label>
-                    <input type="text" name="title" class="form-control" value="<?php echo $books['title'];?>">
+                    <?php echo form_input('title',$books['title'], 'class="form-control"');?>
                 </div>
                 <div class="form-group">
                     <label>Alamat URL</label>
-                    <input type="text" name="url"  class="form-control" value="<?php echo $books['url'];?>">
+                    <?php echo form_input('url',$books['url'], 'class="form-control"');?>
                 </div>
                 <div class="form-group">
                     <label>Konten/Isi Buku</label>
-                    <textarea name="content" id="" cols="30" rows="10" class="form-control">
-                        <?php echo $books['content'];?>
                     </textarea>
+                    <?php echo form_textarea('content', $books['content'], ' cols="30" rows="10" class="form-control"'); ?>
+                </div>
+                <div class="form-group">
+                  <label >Cover</label>
+                  <?php echo form_upload('cover',$books['cover'],'class="form-control"'); ?>
                 </div>
                 <button type="submit"  class="btn btn-primary">Edit Artikel</button>
-            </form>
+            <?php echo form_close(); ?>
     </div>
   </div>
 </div>
